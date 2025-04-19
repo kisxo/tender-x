@@ -7,13 +7,29 @@ class HomeController
     public function index()
     {
         $title = "Welcome Home";
-        echo "Home Page";
-        // Option 1: Simple view include
-        // require_once __DIR__ . '/../Views/home.php';
-
-        // Option 2: Use a view helper if you created one
-        // $viewPath = __DIR__ . '/../Views/home.php';
-        // include __DIR__ . '/../Views/layout.php';
         
+         // 'home' is App/View/home.php file
+        $content = $this->renderView('home');
+
+        // Render the page with the layout
+        echo $this->renderLayout($title, $content);
+    }
+
+    private function renderView($viewName)
+    {
+        ob_start();
+
+        include __DIR__ . '/../views/' . $viewName . '.php';
+
+        return ob_get_clean();
+    }
+
+    private function renderLayout($title, $content)
+    {
+        ob_start();
+        
+        include __DIR__ . '/../views/layout.php';
+        
+        return ob_get_clean();
     }
 }
