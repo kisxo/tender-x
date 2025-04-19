@@ -18,10 +18,5 @@
         <?php echo $content; ?>
     </main>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2025 kisxo. All rights reserved.</p>
-    </footer>
-
 </body>
 </html>

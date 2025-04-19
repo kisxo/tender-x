@@ -22,7 +22,7 @@ $routes = [
 ?>
 
 <nav class="p-3 lg:px-30 flex border-b border-gray-200 gap-2 items-center">
-    <span class="font-bold me-auto text-2xl "> Tender<spa class="text-blue-500">Xpert</span></span>
+    <span class="logo font-bold me-auto text-2xl "> Tender<spa class="text-blue-500">Xpert</span></span>
 
     <div class="flex flex-col justify-center my-auto ">
         <div class="flex items-center justify-center px-1 pt-1">
