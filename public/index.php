@@ -1,14 +1,33 @@
-<?php 
+<?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+function show($stuff)
+{
+    echo "<pre>";
+    print_r($stuff);
+    echo "</pre>";
+}
 
-// Include the core router class
-require_once '../core/router.php';
 
-$router = new Router();
+function splitURL()
+{
+    $URL = $_GET['url'] ?? 'home';
+    $URL = explode('/', $URL);
+    return $URL;
+}
 
-// Include the routes from the routes.php file
-require_once '../App/Routes/routes.php';  // This will register all routes
+function loadController()
+{
+    $URL = splitURL();
 
-$router->dispatch($_SERVER['REQUEST_URI']);
+    $filename = "../app/controllers/".ucfirst($URL[0]).".php";
+    if (file_exists($filename)) 
+    {
+        require $filename;
+    } else {
+
+        $filename = "../app/controllers/_404.php";
+        require $filename;
+    }
+}
+
+loadController();
