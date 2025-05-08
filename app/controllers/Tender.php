@@ -1,10 +1,10 @@
 <?php
 
 
-class Home extends Controller
+class Tender extends Controller
 {
     public function index($a = '', $c = '')
     {
-        echo "Home Controller";
+        echo "Tender Controller";
     }
 }
