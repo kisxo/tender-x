@@ -10,7 +10,7 @@ class App
         return $URL;
     }
 
-    private function loadController()
+    public function loadController()
     {
         $URL = $this->splitURL();
 
