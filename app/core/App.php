@@ -12,7 +12,7 @@ class App
 
     private function loadController()
     {
-        $URL = splitURL();
+        $URL = $this->splitURL();
 
         $filename = "../app/controllers/".ucfirst($URL[0]).".php";
         if (file_exists($filename)) 
