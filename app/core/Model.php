@@ -10,6 +10,20 @@ Trait Model
 
     protected $limit = 10;
     protected $offset = 0;
+    protected $order_type = "desc";
+    protected $order_column = "id";
+
+
+    public function findAll()
+    {
+
+        //dynamically select from a table
+        $query = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $query;
+        return $this -> query($query);
+    }
+
 
     public function where($data, $data_not = [])
     {
@@ -17,7 +31,7 @@ Trait Model
         $keys_not = array_keys($data_not);
 
         //dynamically select from a table
-        $query = "SELECT * FROM $this->table where ";
+        $query = "SELECT * FROM $this->table WHERE ";
 
         foreach ($keys as $key)
         {
@@ -30,7 +44,7 @@ Trait Model
         }
 
         $query = trim($query, " && ");
-        $query .= " LIMIT $this->limit OFFSET $this->offset";
+        $query .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $query;
         $data = array_merge($data, $data_not);
@@ -44,7 +58,7 @@ Trait Model
         $keys_not = array_keys($data_not);
 
         //dynamically select from a table
-        $query = "SELECT * FROM $this->table where ";
+        $query = "SELECT * FROM $this->table WHERE ";
 
         foreach ($keys as $key)
         {
