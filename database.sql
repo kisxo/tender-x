@@ -3,7 +3,7 @@ USE tenderx;
 
 -- USERS
 CREATE TABLE users (
-  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
@@ -14,14 +14,14 @@ CREATE TABLE users (
 
 -- CATEGORIES
 CREATE TABLE categories (
-  category_id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE,
   description TEXT
 );
 
 -- TENDERS
 CREATE TABLE tenders (
-  tender_id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(200) NOT NULL,
   description TEXT,
   category_id INT,
@@ -30,18 +30,18 @@ CREATE TABLE tenders (
   deadline DATE,
   status ENUM('open', 'closed', 'awarded') DEFAULT 'open',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (category_id) REFERENCES categories(category_id),
-  FOREIGN KEY (posted_by) REFERENCES users(user_id)
+  FOREIGN KEY (category_id) REFERENCES categories(id),
+  FOREIGN KEY (posted_by) REFERENCES users(id)
 );
 
 -- BIDS
 CREATE TABLE bids (
-  bid_id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   tender_id INT,
   user_id INT,
   bid_amount DECIMAL(12,2) NOT NULL,
   message TEXT,
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (tender_id) REFERENCES tenders(tender_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
+  FOREIGN KEY (tender_id) REFERENCES tenders(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
