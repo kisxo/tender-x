@@ -1,9 +1,13 @@
 <?php
 
-class Model
+Trait Model
 {
     use Database;
-    protected $table = "users";
+    
+    //every model class should have table value for dynamic qyerying
+    //example 
+    // protected $table = "users";
+
     protected $limit = 10;
     protected $offset = 0;
 
