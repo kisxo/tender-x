@@ -33,6 +33,7 @@ class Model
         return $this -> query($query, $data);
     }
 
+
     public function first($data, $data_not = [])
     {
         $keys = array_keys($data);
@@ -66,6 +67,7 @@ class Model
         return false;
     }
 
+
     public function insert($data)
     {
         $keys = array_keys($data);
@@ -78,10 +80,30 @@ class Model
         return false;
     }
 
+
     public function update($id, $data, $id_column = "id")
     {
 
+        $keys = array_keys($data);
+
+        //dynamically select from a table
+        $query = "UPDATE $this->table SET ";
+
+        foreach ($keys as $key)
+        {
+            $query .= $key . " = :" . $key . ", ";
+        }
+        $query = trim($query, ", ");
+
+        $query .= " WHERE $id_column = :$id_column";
+
+        $data[$id_column] = $id;
+
+        // echo $query;
+        $this -> query($query, $data);
+        return false;
     }
+
 
     public function delete($id, $id_column = "id")
     {
