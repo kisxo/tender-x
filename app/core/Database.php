@@ -1,10 +1,27 @@
 <?php
 
+Trait Database
+{
+    private function connect()
+    {
+        $con = new PDO(DBDRIVER.":host=".DBHOST.";dbname=".DBNAME.";charset=utf8mb4", DBUSER, DBPASS);
+        return $con;
+    }
 
-try {
-    $db_connection = new PDO(DBDRIVER.":host=".DBHOST.";dbname=".DBNAME.";charset=utf8mb4", DBUSER, DBPASS);
-}catch (PDOException $e) {
-    die("DB Connection failed: " . $e->getMessage());
+    public function query($query, $data = [])
+    {
+
+        $db_connection = $this->connect();
+        $smt = $db_connection->prepare($query);
+
+        $check = $smt->execute($data);
+        if ($check) {
+            $result = $smt->fetchAll(PDO::FETCH_OBJ);
+            if (is_array($result) && count($result) ) {
+                return $result;
+            }
+        }
+
+        return false;
+    }
 }
-
-show($db_connection);
