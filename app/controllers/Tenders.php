@@ -1,8 +1,10 @@
 <?php
 
 
-class Tenders extends Controller
+class Tenders
 {
+    use Controller;
+
     public function index($a = '', $c = '')
     {
         echo "Tender Controller";
