@@ -1,7 +1,7 @@
 <?php
 
 
-class Tender extends Controller
+class Tenders extends Controller
 {
     public function index($a = '', $c = '')
     {
