@@ -1,1 +1,1 @@
-home View
+Home view
