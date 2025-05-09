@@ -1,0 +1,2 @@
+-- Some test data of tenderx webapp
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `status`, `created_at`) VALUES (NULL, 'Uday Subba', 'udaysubba2004@gmail.com', SHA1('12345'), 'admin', 'active', current_timestamp()), (NULL, 'Rahul Saikia', 'rahulsaikia682@gmail.com', SHA1('12345'), 'user', 'active', current_timestamp()) 
