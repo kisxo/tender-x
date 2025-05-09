@@ -29,8 +29,8 @@ class Model
         $query .= " LIMIT $this->limit OFFSET $this->offset";
 
         // echo $query;
-        $query_data = array_merge($data, $data_not);
-        return $this -> query($query, $query_data);
+        $data = array_merge($data, $data_not);
+        return $this -> query($query, $data);
     }
 
     public function first($data, $data_not = [])
@@ -55,8 +55,8 @@ class Model
         $query .= " LIMIT $this->limit OFFSET $this->offset";
 
         // echo $query;
-        $query_data = array_merge($data, $data_not);
-        $result =  $this -> query($query, $query_data);
+        $data = array_merge($data, $data_not);
+        $result =  $this -> query($query, $data);
 
         if ($result)
         {
@@ -68,7 +68,14 @@ class Model
 
     public function insert($data)
     {
-    
+        $keys = array_keys($data);
+
+        $query = "INSERT INTO $this->table (".implode(",", $keys).") VALUES (:".implode(",:", $keys).")";
+
+        // echo $query;
+        $this -> query($query, $data);
+
+        return false;
     }
 
     public function update($id, $data, $id_column = "id")
@@ -78,6 +85,12 @@ class Model
 
     public function delete($id, $id_column = "id")
     {
+        $data[$id_column] = $id;
+        $query = "DELETE FROM $this->table WHERE $id_column = :$id_column";
 
+        // echo $query;
+        $this -> query($query, $data);
+
+        return false;
     }
 }
