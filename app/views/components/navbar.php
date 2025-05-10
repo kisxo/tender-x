@@ -1,23 +1,40 @@
 <?php
 
-$routes = [
-    [
-        'name' => 'Account',
-        'url'  => '/accounts',
-    ],
-    [
-        'name' => 'Support',
-        'url'  => '/support',
-    ],
-    [
-        'name' => 'Login',
-        'url'  => '/login',
-    ],
-    [
-        'name' => 'Register',
-        'url'  => '/register',
-    ]
-];
+
+$routes = [];
+
+if (empty($_SESSION["USER"]))
+{
+    $routes = [
+        [
+            'name' => 'Login',
+            'url'  => '/login',
+        ],
+        [
+            'name' => 'Register',
+            'url'  => '/register',
+        ],
+        [
+            'name' => 'Support',
+            'url'  => '/support',
+        ],
+    ];
+}else {
+    $routes = [
+        [
+            'name' => 'Profile',
+            'url'  => '/profile',
+        ],
+        [
+            'name' => 'Dashboard',
+            'url'  => '/dashboard',
+        ],
+        [
+            'name' => 'Support',
+            'url'  => '/support',
+        ]
+        ];
+}
 
 ?>
 
@@ -40,9 +57,6 @@ $routes = [
                                 <a href="<?= $route['url'] ?>" class="hover:bg-indigo-500 hover:text-white rounded-md text-gray-700 flex justify-between w-full px-4 py-3 text-sm leading-5 text-left"  role="menuitem" ><?= $route['name'] ?></a>
                             <?php endforeach; ?>
 
-                        </div>
-                        <div class="py-1">
-                            <a href="#" class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"  role="menuitem" >Logout</a>
                         </div>
                     </div>
                 </div>
