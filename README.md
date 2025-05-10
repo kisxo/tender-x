@@ -34,3 +34,7 @@ A modern web application that allows organizations to post tenders and vendors t
 1. Clone the repo:
 
     ```git clone https://github.com/kisxo/tender-x.git```
+
+2. Start tailwind watch
+
+    ./tailwind -o public/assets/css/style.css --watch
