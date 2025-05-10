@@ -8,5 +8,7 @@ class Tenders
     public function index($a = '', $c = '')
     {
         echo "Tender Controller";
+        //example redirect
+        // redirect('home/jeo');
     }
 }

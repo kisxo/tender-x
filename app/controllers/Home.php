@@ -7,7 +7,13 @@ class Home
 
     public function index()
     {
-        $this->view("home");
+        // example usage for USER class
+        // $data['errors'] = $user->errors;
+
+        $data['errors'] = "Test Error";
+
+        // $this->view('sign');
+        $this->view("home", $data);
     }
 
 }
