@@ -7,13 +7,13 @@ class Home
 
     public function index()
     {
-        // example usage for USER class
-        // $data['errors'] = $user->errors;
+        // show tenders if user logged in
+        if (!empty($_SESSION["USER"]))
+        {
+            redirect('/tenders');
+        }
 
-        $data['errors'] = "Test Error";
-
-        // $this->view('sign');
-        $this->view("home", $data);
+        $this->view("home", []);
     }
 
 }

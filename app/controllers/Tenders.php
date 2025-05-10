@@ -5,10 +5,13 @@ class Tenders
 {
     use Controller;
 
-    public function index($a = '', $c = '')
+    public function index()
     {
-        echo "Tender Controller";
-        //example redirect
-        // redirect('home/jeo');
+        if (empty($_SESSION["USER"]))
+        {
+            redirect('/');
+        }
+
+        $this->view("tenders", []);
     }
 }
