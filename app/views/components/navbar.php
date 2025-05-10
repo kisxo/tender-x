@@ -32,8 +32,12 @@ if (empty($_SESSION["USER"]))
         [
             'name' => 'Support',
             'url'  => '/support',
+        ],
+        [
+            'name' => 'Logout',
+            'url'  => '/logout',
         ]
-        ];
+    ];
 }
 
 ?>
