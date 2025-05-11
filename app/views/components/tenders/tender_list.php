@@ -1,36 +1,3 @@
-<?php
-    $tenders = [
-        [
-            'id' => 1,
-            'title' => 'Road Construction Project in Assam',
-            'category' => 'Construction',
-            'location' => 'Guwahati',
-            'deadline' => '2025-06-15',
-        ],
-        [
-            'id' => 1,
-            'title' => 'Road Construction Project in Assam',
-            'category' => 'Construction',
-            'location' => 'Guwahati',
-            'deadline' => '2025-06-15',
-        ],
-        [
-            'id' => 1,
-            'title' => 'Road Construction Project in Assam',
-            'category' => 'Construction',
-            'location' => 'Guwahati',
-            'deadline' => '2025-06-15',
-        ],
-        [
-            'id' => 1,
-            'title' => 'Road Construction Project in Assam',
-            'category' => 'Construction',
-            'location' => 'Guwahati',
-            'deadline' => '2025-06-15',
-        ],
-    ];
-?>
-
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:px-10 lg:px-30">
     <?php foreach ($tenders as $tender): ?>
         <div class="bg-white rounded-md border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
