@@ -12,8 +12,8 @@
     <!-- Navbar -->
     <?php require "components/navbar.php"; ?>
 
-    
-
+    <!-- Category Selector -->
+    <?php require "components/tenders/category_selector.php"; ?>
 
     <!-- Footer Section -->
     <?php require_once "components/footer.php" ?>
