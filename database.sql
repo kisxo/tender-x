@@ -28,6 +28,7 @@ CREATE TABLE tenders (
   posted_by INT,
   budget DECIMAL(12,2),
   deadline DATE,
+  location VARCHAR(100) NOT NULL,
   status ENUM('open', 'closed', 'awarded') DEFAULT 'open',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (category_id) REFERENCES categories(id),
