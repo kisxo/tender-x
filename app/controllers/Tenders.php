@@ -7,11 +7,21 @@ class Tenders
 
     public function index()
     {
+        $category = new Category;
+
         if (empty($_SESSION["USER"]))
         {
             redirect('/');
         }
 
-        $this->view("tenders", []);
+
+        $data["category"] = $category->findAll();
+
+        foreach($data["category"] as $row)
+        {
+            $data["categories"][] = ['id' => $row->id, 'name' => $row->name];
+        }
+
+        $this->view("tenders", $data);
     }
 }

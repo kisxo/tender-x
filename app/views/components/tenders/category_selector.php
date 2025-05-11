@@ -7,15 +7,6 @@ unset($query_params['category']); // remove old category if exists
 $current_path = $parsed_url['path'];
 $base_query = http_build_query($query_params);
 
-// Define categories
-$categories = [
-    ['name' => 'All Category', 'category' => ''],
-    ['name' => 'Construction', 'category' => 'construction'],
-    ['name' => 'IT Services',  'category' => 'it-services'],
-    ['name' => 'Healthcare',   'category' => 'healthcare'],
-    ['name' => 'Education',    'category' => 'education'],
-];
-
 // Get current category from query string
 $current_category = $_GET['category'] ?? '';
 ?>
@@ -27,9 +18,9 @@ $current_category = $_GET['category'] ?? '';
 
     <div class="category-tab flex gap-4 overflow-scroll mb-4">
         <?php foreach ($categories as $category): 
-            $isActive = strtolower($current_category) === strtolower($category['category']);
+            $isActive = strtolower($current_category) === strtolower($category['id']);
             ?>
-            <a href="/tenders?category=<?= urlencode($category['category']) ?>"
+            <a href="/tenders?category=<?= urlencode($category['id']) ?>"
                class="block py-2 px-4 rounded-2xl text-sm flex text-nowrap font-normal
                       <?= $isActive ? 'bg-blue-500 text-white' : 'bg-slate-100 text-gray-600' ?>">
                 <?= $category['name'] ?>
