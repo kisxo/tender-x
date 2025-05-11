@@ -7,6 +7,9 @@ unset($query_params['category']); // remove old category if exists
 $current_path = $parsed_url['path'];
 $base_query = http_build_query($query_params);
 
+// Define categories
+array_unshift($categories, ['name' => 'All Category', 'id' => '']);
+
 // Get current category from query string
 $current_category = $_GET['category'] ?? '';
 ?>
