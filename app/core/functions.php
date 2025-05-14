@@ -17,3 +17,13 @@ function redirect($path)
     header("Location: ".$path);
     die;
 }
+
+function loginRequired()
+{
+    if (!empty($_SESSION["USER"]))
+    {
+        return false;
+    }
+
+    redirect("/");
+}
