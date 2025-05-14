@@ -12,8 +12,12 @@
     <!-- Navbar -->
     <?php require "components/navbar.php"; ?>
 
-    <!-- Profile Card -->
-    <?php require "components/profile/profile_card.php"; ?>
+    <main>
+
+        <!-- Profile Card -->
+        <?php require "components/profile/profile_card.php"; ?>
+
+    </main>
 
     <!-- Footer Section -->
     <?php require_once "components/footer.php" ?>

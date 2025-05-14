@@ -25,6 +25,10 @@ if (empty($_SESSION["USER"]))
             'name' => 'Profile',
             'url'  => '/profile',
         ],
+                [
+            'name' => 'Create a Tender',
+            'url'  => '/tenders/create',
+        ],
         [
             'name' => 'Dashboard',
             'url'  => '/dashboard',

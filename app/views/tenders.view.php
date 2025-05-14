@@ -12,11 +12,15 @@
     <!-- Navbar -->
     <?php require "components/navbar.php"; ?>
 
-    <!-- Category Selector -->
-    <?php require "components/tenders/category_selector.php"; ?>
+    <main>
 
-    <!-- Tender List -->
-    <?php require "components/tenders/tender_list.php"; ?>
+        <!-- Category Selector -->
+        <?php require "components/tenders/category_selector.php"; ?>
+
+        <!-- Tender List -->
+        <?php require "components/tenders/tender_list.php"; ?>
+
+    </main>
 
     <!-- Footer Section -->
     <?php require_once "components/footer.php" ?>
