@@ -43,4 +43,14 @@ class Tenders
 
         $this->view("tenders", $data);
     }
+
+    public function create()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+
+        }
+
+        $this->view("tenders.create", []);
+    }
 }
