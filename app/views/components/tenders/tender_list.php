@@ -1,10 +1,6 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:px-10 lg:px-30">
-    <?php
-
-use function PHPSTORM_META\type;
-
- foreach ($tenders as $tender): ?>
+    <?php foreach ($tenders as $tender): ?>
         <div class="bg-white rounded-md border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
             <div class="p-6">
                 <h2 class="text-lg font-semibold text-gray-800 leading-snug line-clamp-2 mb-4">

@@ -8,8 +8,14 @@ class Tender
     protected $table = "tenders";
 
     protected $allowedColumns = [
-        "name",
+        "title",
         "description",
+        "category_id",
+        "posted_by",
+        "budget",
+        "deadline",
+        "location",
+        "status",
     ];
 
     public function validate($data)

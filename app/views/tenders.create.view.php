@@ -12,7 +12,13 @@
     <!-- Navbar -->
     <?php require "components/navbar.php"; ?>
 
+    <main>
 
+        <!-- Tender creation form -->
+        <?php require "components/tenders/create_tender_form.php"; ?>
+
+
+    </main>
     <!-- Footer Section -->
     <?php require_once "components/footer.php" ?>
 </body>

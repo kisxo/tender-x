@@ -46,11 +46,36 @@ class Tenders
 
     public function create()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        loginRequired();
+
+        $category = new Category;
+        $tender = new Tender;
+        $data["tenders"] = [];
+
+        //fetcch categories 
+        $data["categories"] = [];
+        $data["category"] = $category->findAll();
+        foreach($data["category"] as $row)
         {
+            $data["categories"][] = ['id' => $row->id, 'name' => $row->name];
+        }
+
+        // create a tender
+        if($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+
+            $_POST["posted_by"] = $_SESSION["USER"]->id;
+            // validate user uploaded form-data
+            if ($tender->validate($_POST))
+            {
+                $tender->insert($_POST);
+
+                // redirect to login page after successfull registration
+                redirect("/tenders");
+            }
 
         }
 
-        $this->view("tenders.create", []);
+        $this->view("tenders.create", $data);
     }
 }
