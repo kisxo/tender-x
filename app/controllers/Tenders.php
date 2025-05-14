@@ -38,7 +38,7 @@ class Tenders
         }
         foreach($data["tender"] as $row)
         {
-            $data["tenders"][] = ['id' => $row->id, 'title' => $row->title, 'category' => $row->category_id, 'location' => $row->location, 'deadline' => $row->deadline];
+            $data["tenders"][] = ['id' => $row->id, 'title' => $row->title, 'category_id' => $row->category_id, 'location' => $row->location, 'deadline' => $row->deadline];
         }
 
         $this->view("tenders", $data);

@@ -1,5 +1,10 @@
+
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:px-10 lg:px-30">
-    <?php foreach ($tenders as $tender): ?>
+    <?php
+
+use function PHPSTORM_META\type;
+
+ foreach ($tenders as $tender): ?>
         <div class="bg-white rounded-md border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
             <div class="p-6">
                 <h2 class="text-lg font-semibold text-gray-800 leading-snug line-clamp-2 mb-4">
@@ -8,7 +13,7 @@
 
                 <div class="flex items-center text-sm text-gray-500 mb-2">
                     <svg class="h-4 w-4 mr-2 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 256 256"><circle cx="128" cy="128" r="40" stroke="currentColor" stroke-width="24"/></svg>
-                    <?= htmlspecialchars($tender['category']) ?>
+                    <?= htmlspecialchars($categories[$tender["category_id"]]["name"]) ?>
                 </div>
 
                 <div class="flex items-center text-sm text-gray-500 mb-2">
