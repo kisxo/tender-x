@@ -7,7 +7,6 @@ class _404
 
     public function index()
     {
-        show("404 Not Found");
-        show("Current URL: " . $_SERVER['REQUEST_URI']);
+        $this->view("404", []);
     }
 }
