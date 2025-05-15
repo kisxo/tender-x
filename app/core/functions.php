@@ -27,3 +27,10 @@ function loginRequired()
 
     redirect("/");
 }
+
+function formatLabel(string $str): string {
+    // Replace underscores with spaces
+    $str = str_replace('_', ' ', $str);
+    // Capitalize each word
+    return ucwords($str);
+}
