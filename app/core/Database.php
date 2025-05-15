@@ -4,7 +4,7 @@ Trait Database
 {
     private function connect()
     {
-        $con = new PDO(DBDRIVER.":host=".DBHOST.";dbname=".DBNAME.";charset=utf8mb4", DBUSER, DBPASS);
+        $con = new PDO(DBDRIVER.":host=".DBHOST.";dbname=".DBNAME.";", DBUSER, DBPASS);
         return $con;
     }
 
