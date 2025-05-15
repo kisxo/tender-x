@@ -5,10 +5,11 @@ class Tenders
 {
     use Controller;
 
-    public function index($id = "")
+    public function index($id = '')
     {
         $category = new Category;
         $tender = new Tender;
+        $user = new User;
         $data["tenders"] = [];
         $data["categories"] = [];
 
@@ -50,8 +51,14 @@ class Tenders
         { 
             $arr["id"] = $id;
             $result = $tender->first($arr);
+            
             if (!empty($result))
             {
+                $user_data = $user->first(["id" => $result->posted_by]);
+                $result->posted_by = $user_data->name;
+                $result->category = $data["categories"][$result->category_id]["name"];
+                $data["exclude"] = ['id', 'category_id'];
+
                 $data["tender"] = $result;
                 return $this->view("tenders.detail", $data);
             }
@@ -81,7 +88,7 @@ class Tenders
         {
 
             $_POST["posted_by"] = $_SESSION["USER"]->id;
-            // validate user uploaded form-data
+            // validate tender uploaded form-data
             if ($tender->validate($_POST))
             {
                 $tender->insert($_POST);
