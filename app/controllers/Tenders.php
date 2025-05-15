@@ -51,7 +51,7 @@ class Tenders
         { 
             $arr["id"] = $id;
             $result = $tender->first($arr);
-            
+
             if (!empty($result))
             {
                 $user_data = $user->first(["id" => $result->posted_by]);
@@ -59,6 +59,8 @@ class Tenders
                 $result->category = $data["categories"][$result->category_id]["name"];
                 $data["exclude"] = ['id', 'category_id'];
 
+                //check tender deadline
+                $data["deadline_over"] = date('Y-m-d', strtotime($result->deadline)) < date('Y-m-d');
                 $data["tender"] = $result;
                 return $this->view("tenders.detail", $data);
             }
