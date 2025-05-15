@@ -5,7 +5,7 @@ class Tenders
 {
     use Controller;
 
-    public function index()
+    public function index($id = "")
     {
         $category = new Category;
         $tender = new Tender;
@@ -32,13 +32,29 @@ class Tenders
         {
             $data["tender"] = [];
         }
+
+        //default category
+        $data["categories"][''] = ['id' => '', 'name' => "All"];
         foreach($data["category"] as $row)
         {
-            $data["categories"][] = ['id' => $row->id, 'name' => $row->name];
+            $data["categories"][$row->id] = ['id' => $row->id, 'name' => $row->name];
         }
         foreach($data["tender"] as $row)
         {
             $data["tenders"][] = ['id' => $row->id, 'title' => $row->title, 'category_id' => $row->category_id, 'location' => $row->location, 'deadline' => $row->deadline];
+        }
+
+        // show($data["categories"]);
+
+        if (!empty($id))
+        { 
+            $arr["id"] = $id;
+            $result = $tender->first($arr);
+            if (!empty($result))
+            {
+                $data["tender"] = $result;
+                return $this->view("tenders.detail", $data);
+            }
         }
 
         $this->view("tenders", $data);
