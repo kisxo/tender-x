@@ -8,7 +8,7 @@ Trait Model
     //example 
     // protected $table = "users";
 
-    protected $limit        = 10;
+    protected $limit        = 1000000;
     protected $offset       = 0;
     protected $order_type   = "desc";
     protected $order_column = "id";
