@@ -58,7 +58,8 @@ class Tenders
                 $data["is_creator"] = $_SESSION["USER"]->id == $result->posted_by;
                 $user_data = $user->first(["id" => $result->posted_by]);
 
-                $data["bids"] = $bid->findall();
+                // set total bids of tender
+                $result->total_bids = $bid->query("SELECT COUNT(*) FROM bids")["0"]->count;
 
                 $result->posted_by = $user_data->name;
                 $result->category = $data["categories"][$result->category_id]["name"];
