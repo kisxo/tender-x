@@ -34,8 +34,8 @@ if (empty($_SESSION["USER"]))
             'url'  => '/tenders/posts',
         ],
         [
-            'name' => 'Dashboard',
-            'url'  => '/dashboard',
+            'name' => 'My Bids',
+            'url'  => '/bids',
         ],
         [
             'name' => 'Support',

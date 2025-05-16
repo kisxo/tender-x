@@ -7,7 +7,17 @@ class Bids
 
     public function index()
     {
-        echo "bid";
+        loginRequired();
+        $bid = new Bid;
+        $data["bids"] = [];
+
+        try {
+            $data["bids"] = $bid->query("SELECT bids.id as bid_id, bids.*, tenders.* FROM bids JOIN tenders ON bids.tender_id = tenders.id WHERE bids.user_id = :user_id", ["user_id" => $_SESSION["USER"]->id]);
+        } catch (\Throwable $th) {
+            // throw $th;
+        }
+
+        $this->view("bids", $data);
     }
 
     public function create($tender_id = '')
