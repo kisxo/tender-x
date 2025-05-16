@@ -1,4 +1,4 @@
-<form action="/login" method="post" class="login-form mt-[40px] mx-auto w-4/5 max-w-lg p-5">
+<form action="/bids/create/<?= $tender ? $tender->id : "" ?>" method="post" class="login-form mt-[40px] mx-auto w-4/5 max-w-lg p-5">
 
     <div class="text-center mb-[40px] text-3xl font-bold">
         <h1 class="mx-auto"> Place a Bid </h1>
@@ -27,7 +27,7 @@
 
     <div class="mb-6">
         <label for="message" class="block mb-2 text-sm font-medium text-gray-600">Message</label>
-        <textarea type="text" id="message" name="message" class="bg-slate-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:border-blue-500 block w-full p-2.5 "  required> </textarea>
+        <textarea id="message" name="message" class="bg-slate-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:border-blue-500 block w-full p-2.5 " required></textarea>
     </div>
 
     <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center mb-2 ">Submit Bid</button>

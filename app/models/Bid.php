@@ -16,6 +16,22 @@ class Bid
     public function validate($data)
     {
         $this->errors = [];
+        // check amount
+        if (($data["bid_amount"]) < 0)
+        {
+            $this->errors["Bid Amount"] = "Invalid amount!";
+        }
+
+        //check message
+        if (empty($data["message"]))
+        {
+            $this->errors["Message"] = "Message is required!";
+        }
+
+        if ($data["bid"]->findAll(["user_id" => $data["user_id"]]))
+        {
+            $this->errors["Message"] = "Cannot bid twice on a single tender!";
+        }
 
         if (empty($this->errors))
         {
