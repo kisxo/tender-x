@@ -7,10 +7,7 @@
 </div>
 
 <div class="border border-gray-200 rounded-md shadow mx-3 p-4 mx-2 md:mx-auto my-10  max-w-4xl text-sm">
-
-    <?php foreach ($tender as $field => $val):?>
-
-        <?php if (in_array($field, $exclude)) continue; ?>
+    <?php foreach ($bids as $field => $val):?>
         <div class="flex py-2">
             <span class="font-semibold pe-3">
                 <?= formatLabel($field); ?>:
@@ -22,23 +19,9 @@
     <?php endforeach; ?>
 
     <?php if ($is_creator): ?>
-        <a href="/edit" class="block mt-10">
-            <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Edit Tender</button>
+        <a href="/tender/finish/<?= $bids->id ?>" class="block mt-10">
+            <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Select this bid</button>
         </a>
     <?php endif; ?>
 
-    <a href="/bids/create/<?= $tender->id ?>" class="block mt-10">
-        <?php if ($deadline_over || $tender->status != "open"): ?>
-            <button disabled type="submit" class="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Bidding Closed</button>
-        <?php else: ?>
-            <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Place a bid</button>
-        <?php endif; ?>
-   </a>
-
 </div>
-
-<?php if ($is_creator): ?>
-<div class="p-4 lg:px-30">
-    
-</div>
-<?php endif; ?>

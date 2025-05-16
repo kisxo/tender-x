@@ -58,7 +58,7 @@
                         Amount: <?= $bid->bid_amount ?>
                     </div>
 
-                    <a href="/bids/<?= urlencode($bid->bid_id) ?>"
+                    <a href="/bids/<?= urlencode($bid->id) ?>"
                     class="inline-block w-full text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition duration-200">
                         View Details
                     </a>

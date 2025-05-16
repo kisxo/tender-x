@@ -5,7 +5,7 @@ class Bids
 {
     use Controller;
 
-    public function index()
+    public function index($id = '')
     {
         loginRequired();
         $bid = new Bid;
@@ -15,6 +15,25 @@ class Bids
             $data["bids"] = $bid->query("SELECT bids.id as bid_id, bids.*, tenders.* FROM bids JOIN tenders ON bids.tender_id = tenders.id WHERE bids.user_id = :user_id", ["user_id" => $_SESSION["USER"]->id]);
         } catch (\Throwable $th) {
             // throw $th;
+        }
+
+        // show($data["categories"]);
+        if (!empty($id))
+        { 
+            try {
+                $result = $bid->query("SELECT bids.id as bid_id, bids.*, tenders.* FROM bids JOIN tenders ON bids.tender_id = tenders.id WHERE bids.id = :bid_id", ["bid_id" => $id]);
+            } catch (\Throwable $th) {
+                // throw $th;
+            }
+            // $arr["id"] = $id;
+            // $result = $tender->first($arr);
+            if (!empty($result))
+            { 
+                $data["bids"] = $result[0];
+                $data["is_creator"] = $_SESSION["USER"]->id == $data["bids"]->posted_by;
+                // show($data);
+                return $this->view("bids.detail", $data);
+            }
         }
 
         $this->view("bids", $data);
