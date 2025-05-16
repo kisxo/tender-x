@@ -28,7 +28,7 @@
     <?php endif; ?>
 
     <a href="/bids/create/<?= $tender->id ?>" class="block mt-10">
-        <?php if ($deadline_over): ?>
+        <?php if ($deadline_over || $tender->status != "open"): ?>
             <button disabled type="submit" class="text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Bidding Closed</button>
         <?php else: ?>
             <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Place a bid</button>
