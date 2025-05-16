@@ -136,7 +136,7 @@ class Tenders
             $data["tender"] = $tender->where($arr);
         }else
         {
-            $data["tender"] = $tender->findAll();
+            $data["tender"] = $tender->where(['posted_by' => $_SESSION["USER"]->id]);
         }
         if(empty($data["tender"]))
         {
@@ -151,7 +151,7 @@ class Tenders
         }
         foreach($data["tender"] as $row)
         {
-            $data["tenders"][] = ['id' => $row->id, 'title' => $row->title, 'category_id' => $row->category_id, 'location' => $row->location, 'deadline' => $row->deadline,];
+            $data["tenders"][] = ['id' => $row->id, 'title' => $row->title, 'category_id' => $row->category_id, 'location' => $row->location, 'deadline' => $row->deadline, 'status' => $row->status,];
         }
 
         $this->view("tenders.posts", $data);

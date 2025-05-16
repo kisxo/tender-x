@@ -1,5 +1,8 @@
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:px-10 lg:px-30">
+<?php if (!empty($tender)): ?>
+    <div class=" text-lg font-bold p-5 lg:px-30">
+        Tender posted
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:px-10 lg:px-30">
     <?php foreach ($tenders as $tender): ?>
         <div class="bg-white rounded-md border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
             <div class="p-6">
@@ -40,4 +43,13 @@
         </div>
     <?php endforeach; ?>
 </div>
-
+<?php else: ?>
+    <div class=" text-lg font-bold p-5 lg:px-30">
+        No Tender posted
+    </div>
+    <div class="font-bold p-5 lg:px-30">
+        <a href="/tenders/create" class="inline-block w-full text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition duration-200">
+            Create a Tenders
+        </a>
+    </div>
+<?php endif; ?>
