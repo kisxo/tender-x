@@ -10,6 +10,8 @@ class Tenders
         $category = new Category;
         $tender = new Tender;
         $user = new User;
+        $bid = new Bid;
+        $data["bids"] = [];
         $data["tenders"] = [];
         $data["categories"] = [];
 
@@ -51,11 +53,12 @@ class Tenders
         { 
             $arr["id"] = $id;
             $result = $tender->first($arr);
-
             if (!empty($result))
             {
                 $data["is_creator"] = $_SESSION["USER"]->id == $result->posted_by;
                 $user_data = $user->first(["id" => $result->posted_by]);
+
+                $data["bids"] = $bid->findall();
 
                 $result->posted_by = $user_data->name;
                 $result->category = $data["categories"][$result->category_id]["name"];
