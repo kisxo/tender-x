@@ -59,7 +59,12 @@ class Tenders
                 $user_data = $user->first(["id" => $result->posted_by]);
 
                 // set total bids of tender
-                $result->total_bids = $bid->query("SELECT COUNT(*) FROM bids")["0"]->count;
+                $result->total_bids = $bid->query("SELECT COUNT(*) FROM bids where tender_id = :tender_id", ["tender_id" => $id])["0"]->count;
+                $data["bids"] = $bid->where(['tender_id' => $id]);
+                if ( empty($data["bids"]))
+                {
+                    $data["bids"] = [];
+                }
 
                 $result->posted_by = $user_data->name;
                 $result->category = $data["categories"][$result->category_id]["name"];
@@ -155,5 +160,77 @@ class Tenders
         }
 
         $this->view("tenders.posts", $data);
+    }
+
+    public function bids($id = '')
+    {
+        $category = new Category;
+        $tender = new Tender;
+        $user = new User;
+        $bid = new Bid;
+        $data["bids"] = [];
+        $data["tenders"] = [];
+        $data["categories"] = [];
+
+        if (empty($_SESSION["USER"]))
+        {
+            redirect('/');
+        }
+
+
+        $data["category"] = $category->findAll();
+
+        if(!empty($_GET["category"]))
+        {
+            $arr['category_id'] = $_GET["category"];
+            $data["tender"] = $tender->where($arr);
+        }else
+        {
+            $data["tender"] = $tender->findAll();
+        }
+        if(empty($data["tender"]))
+        {
+            $data["tender"] = [];
+        }
+
+        //default category
+        $data["categories"][''] = ['id' => '', 'name' => "All"];
+        foreach($data["category"] as $row)
+        {
+            $data["categories"][$row->id] = ['id' => $row->id, 'name' => $row->name];
+        }
+        foreach($data["tender"] as $row)
+        {
+            $data["tenders"][] = ['id' => $row->id, 'title' => $row->title, 'category_id' => $row->category_id, 'location' => $row->location, 'deadline' => $row->deadline, 'status' => $row->status,];
+        }
+
+        // show($data["categories"]);
+
+        if (!empty($id))
+        { 
+            $arr["id"] = $id;
+            $result = $tender->first($arr);
+            if (!empty($result))
+            {
+                $data["is_creator"] = $_SESSION["USER"]->id == $result->posted_by;
+                $user_data = $user->first(["id" => $result->posted_by]);
+
+                // set total bids of tender
+                $result->total_bids = $bid->query("SELECT COUNT(*) FROM bids")["0"]->count;
+
+                $result->posted_by = $user_data->name;
+                $result->category = $data["categories"][$result->category_id]["name"];
+                $data["exclude"] = ['id', 'category_id'];
+
+                //check creator to display edit button
+                //check tender deadline
+                $data["deadline_over"] = date('Y-m-d', strtotime($result->deadline)) < date('Y-m-d');
+
+                $data["tender"] = $result;
+                return $this->view("tenders.detail", $data);
+            }
+        }
+
+        $this->view("tenders", $data);
     }
 }

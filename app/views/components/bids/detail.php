@@ -38,43 +38,7 @@
 </div>
 
 <?php if ($is_creator): ?>
-<?php if (!empty($bids)):?>
-    <div class=" text-lg font-bold p-5 lg:px-30">
-            Bid History
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:px-10 lg:px-30">
-
-        <?php foreach ($bids as $index => $bid): ?>
-            <div class="bg-white rounded-md border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
-                <div class="p-6">
-
-                    <div class="flex items-center text-sm text-gray-500 mb-2">
-                        <svg class="h-4 w-4 mr-2 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 256 256"><circle cx="128" cy="128" r="40" stroke="currentColor" stroke-width="24"/></svg>
-                        No: <?= $index + 1 ?>
-                    </div>
-
-                    <div class="flex items-center text-sm text-gray-500 mb-2">
-                        <svg class="h-4 w-4 mr-2 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 256 256"><circle cx="128" cy="128" r="40" stroke="currentColor" stroke-width="24"/></svg>
-                        Amount: <?= $bid->bid_amount ?>
-                    </div>
-
-                    <a href="/bids/<?= urlencode($bid->bid_id) ?>"
-                    class="inline-block w-full text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition duration-200">
-                        View Details
-                    </a>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php else: ?>  
-    <div class=" text-lg font-bold p-5 lg:px-30">
-        Bid History Empty
-    </div>
-    <div class="font-bold p-5 lg:px-30">
-        <a href="/tenders" class="inline-block w-full text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition duration-200">
-            Browse Tenders
-        </a>
-    </div>
-<?php endif; ?>
-
+<div class="p-4 lg:px-30">
+    
+</div>
 <?php endif; ?>
