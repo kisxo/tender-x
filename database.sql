@@ -29,6 +29,7 @@ CREATE TABLE tenders (
   posted_by INT REFERENCES users(id),
   budget NUMERIC(12,2),
   deadline DATE,
+  winner_bid INT,
   location VARCHAR(100) NOT NULL,
   status TEXT CHECK (status IN ('open', 'closed', 'awarded')) DEFAULT 'open',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
