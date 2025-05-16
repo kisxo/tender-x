@@ -28,7 +28,7 @@ class Bid
             $this->errors["Message"] = "Message is required!";
         }
 
-        if ($data["bid"]->findAll(["user_id" => $data["user_id"]]))
+        if ($data["bid"]->where(["user_id" => $data["user_id"], "tender_id" => $data["tender_id"]]))
         {
             $this->errors["Message"] = "Cannot bid twice on a single tender!";
         }
