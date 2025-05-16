@@ -36,15 +36,15 @@ Trait Model
 
         foreach ($keys as $key)
         {
-            $query .= $key . " = :" . $key . " && ";
+            $query .= $key . " = :" . $key . " AND ";
         }
 
         foreach ($keys_not as $key)
         {
-            $query .= $key . " != :" . $key . " && ";
+            $query .= $key . " != :" . $key . " AND ";
         }
 
-        $query = trim($query, " && ");
+        $query = trim($query, " AND ");
         $query .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $query;
@@ -63,15 +63,15 @@ Trait Model
 
         foreach ($keys as $key)
         {
-            $query .= $key . " = :" . $key . " && ";
+            $query .= $key . " = :" . $key . " AND ";
         }
 
         foreach ($keys_not as $key)
         {
-            $query .= $key . " != :" . $key . " && ";
+            $query .= $key . " != :" . $key . " AND ";
         }
 
-        $query = trim($query, " && ");
+        $query = trim($query, " AND ");
         $query .= " LIMIT $this->limit OFFSET $this->offset";
 
         // echo $query;
