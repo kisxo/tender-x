@@ -33,6 +33,11 @@ class Bid
             $this->errors["Message"] = "Cannot bid twice on a single tender!";
         }
 
+        if ($data["user_id"] == $data["posted_by"])
+        {
+            $this->errors["User"] = "Cannot bid on self created tender!";
+        }
+
         if (empty($this->errors))
         {
             return true;

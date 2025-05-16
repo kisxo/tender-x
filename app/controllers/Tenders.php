@@ -233,4 +233,20 @@ class Tenders
 
         $this->view("tenders", $data);
     }
+
+    public function finish($id = '', $bid_id = "")
+    {
+        $tender = new Tender;
+
+        if (empty($_SESSION["USER"]))
+        {
+            redirect('/');
+        }
+        $arr['id'] = $id;
+        $arrData['winner_bid'] = $bid_id;
+        $arrData['status'] = "closed";
+        $tender->update($id, $arrData);
+
+        redirect('/tenders/' . $id);
+    }
 }

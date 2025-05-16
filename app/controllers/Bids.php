@@ -59,7 +59,8 @@ class Bids
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
-        {
+        {   
+            $_POST["posted_by"] = $data["tender"]->posted_by;
             $_POST["user_id"] = $_SESSION["USER"]->id;
             $_POST["bid"] = $bid;
             if ($bid->validate($_POST))

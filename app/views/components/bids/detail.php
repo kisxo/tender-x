@@ -19,7 +19,7 @@
     <?php endforeach; ?>
 
     <?php if ($is_creator  && $bids->status === "open"): ?>
-        <a href="/tender/finish/<?= $bids->id ?>" class="block mt-10">
+        <a href="/tenders/finish/<?= $bids->tender_id ?>/<?= $bids->bid_id ?>/" class="block mt-10">
             <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Select this bid</button>
         </a>
     <?php endif; ?>
