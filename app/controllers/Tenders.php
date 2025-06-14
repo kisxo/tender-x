@@ -90,7 +90,7 @@ class Tenders
         $tender = new Tender;
         $data["tenders"] = [];
 
-        //fetcch categories 
+        //fetch categories 
         $data["categories"] = [];
         $data["category"] = $category->findAll();
         foreach($data["category"] as $row)
@@ -234,19 +234,46 @@ class Tenders
         $this->view("tenders", $data);
     }
 
-    public function finish($id = '', $bid_id = "")
+    public function finish()
     {
         $tender = new Tender;
+        $bid = new Bid;
+
+        show($_POST);
+        // redirect('/tenders');
+
+        // $tender = new Tender;
 
         if (empty($_SESSION["USER"]))
         {
             redirect('/');
         }
-        $arr['id'] = $id;
-        $arrData['winner_bid'] = $bid_id;
-        $arrData['status'] = "closed";
-        $tender->update($id, $arrData);
 
-        redirect('/tenders/' . $id);
+        show($_SESSION["USER"]);
+
+        $data["tender"] = [];
+        $data["bid"] = [];
+        try{
+            $data["tender"] = $tender->first(['id' => $_POST["tender_id"]]);
+            $data["bid"] = $bid->first(['id' => $_POST["bid_id"]]);
+            show($data);
+        } catch (Exception $e) {
+            show($e->getMessage());
+        }
+
+        if(empty($data["tender"]) || empty($data["bid"]))
+                if (empty($_SESSION["USER"]))
+        {
+            redirect('/');
+        }
+
+        if($data["tender"]->status === "open")
+        {
+            $arr["winner_bid"] = $_POST["bid_id"];
+            $arr["status"] = "awarded";
+            $tender->update($_POST["tender_id"], $arr);
+        }
+
+        redirect('/tenders/'.$_POST["tender_id"]);
     }
 }
