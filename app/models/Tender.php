@@ -14,6 +14,7 @@ class Tender
         "posted_by",
         "budget",
         "deadline",
+        "winner_bid",
         "location",
         "status",
     ];
