@@ -21,9 +21,13 @@
         </div>
     <?php endforeach; ?>
 
-    <?php if ($is_creator): ?>
+    <?php if ($is_creator && $tender -> status === "open"): ?>
         <a href="/edit" class="block mt-10">
             <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">Edit Tender</button>
+        </a>
+    <?php elseif ($is_creator && $tender -> status === "awarded"): ?>
+        <a href="/bids/<?=$tender->winner_bid?>" class="block mt-10">
+            <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm w-full py-2.5 text-center ">View Winner</button>
         </a>
     <?php endif; ?>
 

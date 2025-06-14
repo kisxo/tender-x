@@ -30,6 +30,7 @@ class Bids
             if (!empty($result))
             { 
                 $data["bids"] = $result[0];
+                unset($data["bids"]->id);
                 $data["is_creator"] = $_SESSION["USER"]->id == $data["bids"]->posted_by;
                 // show($data);
                 return $this->view("bids.detail", $data);
