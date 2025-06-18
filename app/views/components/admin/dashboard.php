@@ -7,10 +7,10 @@
     <!-- Dashboard Cards -->
     <main class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     
-    <div class="bg-white p-4 rounded-xl shadow">
+    <a href="/admin/users" class="bg-white p-4 rounded-xl shadow">
         <p class="text-gray-600">Total Users</p>
         <h2 class="text-2xl font-bold text-blue-600"><?= $users->total_users ?></h2>
-    </div>
+    </a>
     
     <div class="bg-white p-4 rounded-xl shadow">
         <p class="text-gray-600">Total Tenders</p>
