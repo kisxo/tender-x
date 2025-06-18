@@ -35,7 +35,7 @@ if (empty($_SESSION["USER"]))
         ],
         [
             'name' => 'My Bids',
-            'url'  => '/bids',
+            'url'  => '/bids/list',
         ],
         [
             'name' => 'Support',
