@@ -28,6 +28,17 @@ function loginRequired()
     redirect("/");
 }
 
+function adminRequired()
+{
+    show($_SESSION["USER"]);
+    if ($_SESSION["USER"]->role === "admin")
+    {
+        return false;
+    }
+
+    redirect("/");
+}
+
 function formatLabel(string $str): string {
     // Replace underscores with spaces
     $str = str_replace('_', ' ', $str);
