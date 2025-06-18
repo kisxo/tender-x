@@ -11,11 +11,16 @@ class Admin
         $user = new User;
         $tender = new Tender;
         $bid = new Bid;
+        $category = new Category;
         try {
-            $data["users"] = $user->query("SELECT COUNT(*) AS total_users  FROM users")[0];
-            $data["tenders"] = $tender->query("SELECT COUNT(*) AS total_tenders  FROM tenders")[0];
-            $data["bids"] = $bid->query("SELECT COUNT(*) AS total_bids  FROM bids")[0];
-            $data["openTenders"] = $tender->query("SELECT COUNT(*) AS total_open_tenders  FROM tenders WHERE status = 'open'")[0];
+            $data["stats"] = [
+                "users" => $user->query("SELECT COUNT(*) AS total FROM users")[0]->total,
+                "tenders" => $tender->query("SELECT COUNT(*) AS total FROM tenders")[0]->total,
+                "bids" => $bid->query("SELECT COUNT(*) AS total FROM bids")[0]->total,
+                "categories" => $category->query("SELECT COUNT(*) AS total FROM categories")[0]->total,
+                "open_tenders" => $tender->query("SELECT COUNT(*) AS total_open_tenders  FROM tenders WHERE status = 'open'")[0]->total_open_tenders
+            ];
+
         } catch (Exception $e) {
 
         }
@@ -104,7 +109,7 @@ class Admin
         if (empty($data["user"])) {
             redirect("/admin/users");
         }
-        
+
         $this->view("admin.users.edit", $data);
     }
 
