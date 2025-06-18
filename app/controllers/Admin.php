@@ -49,4 +49,63 @@ class Admin
         $this->view("admin.users", $data);
     }
 
+    public function users_edit($id = "")
+    {
+        adminRequired();
+        $user = new User;
+
+        // post method
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $role = $_POST['role'] ?? 'user';
+            $status = $_POST['status'] ?? 'active';
+            $password = $_POST['password'] ?? '';
+
+            // Validate inputs
+            if (empty($name) || empty($email)) {
+                redirect("/admin/users_edit/{$id}");
+            }
+
+            // Prepare data for update
+            $updateArr = [
+                "name" => $name,
+                "email" => $email,
+                "role" => $role,
+                "status" => $status,
+            ];
+
+            if (!empty($password)) {
+                $updateArr["password"] = sha1($password);
+            }
+
+            // Update user
+            try {
+                $user->update($id, $updateArr);
+                redirect("/admin/users");
+            } catch (Exception $e) {
+                show("Error updating user: " . $e->getMessage());
+            }
+        }
+
+
+        try {
+            $data["user"] = $user->query("SELECT * FROM users WHERE id = :id", [
+                "id" => $id
+            ])[0];
+        } catch (Exception $e) {
+
+        }
+
+        if (empty($id) || !is_numeric($id)) {
+            redirect("/admin/users");
+        }
+        
+        if (empty($data["user"])) {
+            redirect("/admin/users");
+        }
+        show($_POST);
+        $this->view("admin.users.edit", $data);
+    }
+
 }

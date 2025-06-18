@@ -14,7 +14,7 @@
 
     <main>
         <!-- Admin Dashbaord -->
-        <?php require "components/admin/users/users_list.php"; ?>
+        <?php require "components/admin/users/users_edit.php"; ?>
     </main>
 </body>
 

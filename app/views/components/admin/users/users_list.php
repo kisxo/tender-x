@@ -29,8 +29,8 @@
             <td class="px-6 py-4 <?= $user->status === 'active' ? 'text-green-500' : 'text-red-500' ?>"><?= $user->status ?></td>
             <td class="px-6 py-4"><?= date('Y-m-d', strtotime($user->created_at)) ?></td>
             <td class="px-6 py-4">
-              <a href="/admin/users/edit/<?= $user->id ?>" class="text-blue-600 hover:underline">Edit</a>
-              <a href="/admin/users/delete/<?= $user->id ?>" class="text-red-600 hover:underline ml-4">Delete</a>
+              <a href="/admin/users_edit/<?= $user->id ?>" class="text-blue-600 hover:underline">Edit</a>
+              <a href="/admin/users_delete/<?= $user->id ?>" class="text-red-600 hover:underline ml-4">Delete</a>
             </td>
           </tr>
 
