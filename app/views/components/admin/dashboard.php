@@ -11,21 +11,21 @@
         <p class="text-gray-600">Total Users</p>
         <h2 class="text-2xl font-bold text-blue-600"><?= $users->total_users ?></h2>
     </a>
-    
-    <div class="bg-white p-4 rounded-xl shadow">
+
+    <a  href="/tenders/list" class="bg-white p-4 rounded-xl shadow">
         <p class="text-gray-600">Total Tenders</p>
         <h2 class="text-2xl font-bold text-green-600"><?= $tenders->total_tenders ?></h2>
-    </div>
+    </a>
 
-    <div class="bg-white p-4 rounded-xl shadow">
+    <a class="bg-white p-4 rounded-xl shadow">
         <p class="text-gray-600">Bids Placed</p>
         <h2 class="text-2xl font-bold text-purple-600"><?= $bids->total_bids ?></h2>
-    </div>
+    </a>
 
-    <div class="bg-white p-4 rounded-xl shadow">
+    <a class="bg-white p-4 rounded-xl shadow">
         <p class="text-gray-600">Open Tenders</p>
         <h2 class="text-2xl font-bold text-yellow-600"><?= $openTenders->total_open_tenders ?></h2>
-    </div>
+    </a>
 
     </main>
 

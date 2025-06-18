@@ -108,4 +108,29 @@ class Admin
         $this->view("admin.users.edit", $data);
     }
 
+    public function tenders()
+    {
+        adminRequired();
+        $tender = new Tender;
+        $data["limit"] = 10;
+
+        // Get the current page from the URL, default is 1
+        $data["page"] = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        if ($data["page"] < 1) $data["page"] = 1;
+        $data["offset"] = ($data["page"] - 1) * $data["limit"];
+
+        // Fetch total number of tenders
+        $data["totalTenders"] = $tender->query("SELECT COUNT(*) AS total_tenders  FROM tenders")[0]->total_tenders;
+        $data["totalPages"] = ceil($data["totalTenders"] / $data["limit"]);
+
+        try {
+            $data["tenders"] = $tender->query("SELECT * FROM tenders ORDER BY id DESC LIMIT :limit OFFSET :offset", [
+                "limit" => $data["limit"],
+                "offset" => $data["offset"]
+            ]);
+        } catch (Exception $e) {
+
+        }
+        $this->view("admin.tenders", $data);
+    }
 }

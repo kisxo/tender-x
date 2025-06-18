@@ -293,6 +293,10 @@ class Tenders
         $data["is_creator"] = $_SESSION["USER"]->id == $data["tender"]->posted_by;
         $data["categories"] = $category->findAll();
 
+        if ($_SESSION["USER"]->role === "admin")
+        {
+            $data["is_creator"] = true;
+        }
 
         if (!$data["is_creator"])
         {
@@ -313,5 +317,84 @@ class Tenders
         }
 
         $this->view("tenders.edit", $data);
+    }
+
+
+    public function list()
+    {
+        loginRequired();
+        $tender = new Tender;
+        $data["limit"] = 10;
+        $data["is_admin"] = false;
+
+
+        // Get the current page from the URL, default is 1
+        $data["page"] = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        if ($data["page"] < 1) $data["page"] = 1;
+        $data["offset"] = ($data["page"] - 1) * $data["limit"];
+
+        try {
+            // if admin
+            if ($_SESSION["USER"]->role === "admin")
+            {
+                $data["is_admin"] = true;
+                // Fetch total number of tenders
+                $data["totalTenders"] = $tender->query("SELECT COUNT(*) AS total_tenders  FROM tenders")[0]->total_tenders;
+                $data["totalPages"] = ceil($data["totalTenders"] / $data["limit"]);
+                $data["tenders"] = $tender->query("SELECT * FROM tenders ORDER BY id DESC LIMIT :limit OFFSET :offset", [
+                    "limit" => $data["limit"],
+                    "offset" => $data["offset"]
+                ]);
+            }
+            else
+            {
+                // Fetch total number of tenders
+                $data["totalTenders"] = $tender->query("SELECT COUNT(*) AS total_tenders  FROM tenders WHERE posted_by = :user_id", [
+                    "user_id" => $_SESSION["USER"]->id
+                ])[0]->total_tenders;
+                $data["totalPages"] = ceil($data["totalTenders"] / $data["limit"]);
+                $data["tenders"] = $tender->query("SELECT * FROM tenders WHERE posted_by = :user_id ORDER BY id DESC LIMIT :limit OFFSET :offset", [
+                    "user_id" => $_SESSION["USER"]->id,
+                    "limit" => $data["limit"],
+                    "offset" => $data["offset"]
+                ]);
+            }
+
+        } catch (Exception $e) {
+
+        }
+        $this->view("tenders.list", $data);
+    }
+
+    // delete tender by admin only
+    public function delete($id = "")
+    {
+        adminRequired();
+        $tender = new Tender;
+
+        if (empty($id))
+        {
+            redirect('/tenders/list');
+        }
+
+        $data["tender"] = $tender->first(['id' => $id]);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+            $tender->delete($id);
+            $data["success"] = ["message" => "Tender deleted successfully!"];
+        }
+
+        $data["card"] = [
+            "title" => "Confirm Deletion",
+            "message" => "Are you sure you want to delete this tender?",
+            "info" => $data["tender"]->title,
+            "action-class" => "delete",
+            "action" => "Delete",
+            "method" => "POST",
+            "action-link" => "/tenders/delete/".$id
+        ];
+
+        $this->view("confirm", $data);
     }
 }

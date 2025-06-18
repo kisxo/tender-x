@@ -31,7 +31,7 @@ if (empty($_SESSION["USER"]))
         ],
         [
             'name' => 'My Tenders',
-            'url'  => '/tenders/posts',
+            'url'  => '/tenders/list',
         ],
         [
             'name' => 'My Bids',
@@ -89,3 +89,10 @@ if (empty($_SESSION["USER"]))
 
 
 </nav>
+
+<!-- Show Success Message -->
+<?php if (!empty($data["success"])) : ?>
+    <div class="bg-gray-50 p-3 text-green-400 rounded-sm mb-6">
+        <?= implode("<br/>", $data["success"]) ?>
+    </div>
+<?php endif; ?>
