@@ -53,6 +53,10 @@ if (empty($_SESSION["USER"]))
 <nav class="p-4 lg:px-30 flex border-b border-gray-200 gap-2 items-center">
     <a href="/" class="logo font-bold me-auto text-2xl "> Tender<spa class="text-blue-500">Xpert</span></a>
 
+    <?php if (!empty($_SESSION["USER"]) && !empty($_SESSION["USER"]->role) && $_SESSION["USER"]->role === "admin"): ?>
+        <a href="/admin" class="ms-auto border-2 font-bold border-blue-200 hover:bg-indigo-500 hover:text-white rounded-md text-gray-600 flex justify-between px-4 py-3 text-sm leading-5 text-left" role="menuitem">Admin Dashboard</a>
+    <?php endif; ?>
+
     <div class="flex flex-col justify-center my-auto ">
         <div class="flex items-center justify-center px-1 pt-1">
             <div class="relative inline-block text-left dropdown">

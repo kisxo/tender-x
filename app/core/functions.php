@@ -30,7 +30,6 @@ function loginRequired()
 
 function adminRequired()
 {
-    show($_SESSION["USER"]);
     if ($_SESSION["USER"]->role === "admin")
     {
         return false;
