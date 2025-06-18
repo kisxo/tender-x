@@ -75,4 +75,67 @@ class Bids
         $this->view("bids.create", $data);
     }
 
+    public function list()
+    {
+        loginRequired();
+        $bid = new Bid;
+        $data["limit"] = 10;
+        $data["is_admin"] = false;
+
+
+        // Get the current page from the URL, default is 1
+        $data["page"] = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        if ($data["page"] < 1) $data["page"] = 1;
+        $data["offset"] = ($data["page"] - 1) * $data["limit"];
+
+        try {
+            // if admin
+            if ($_SESSION["USER"]->role === "admin")
+            {
+                $data["is_admin"] = true;
+                // Fetch total number of bids
+                $data["totalBids"] = $bid->query("SELECT COUNT(*) AS total_bids  FROM bids")[0]->total_bids;
+                $data["totalPages"] = ceil($data["totalBids"] / $data["limit"]);
+                $data["bids"] = $bid->query("SELECT * FROM bids ORDER BY id DESC LIMIT :limit OFFSET :offset", [
+                    "limit" => $data["limit"],
+                    "offset" => $data["offset"]
+                ]);
+            }
+            else
+            {
+                // Fetch total number of bids
+                $data["totalBids"] = $bid->query("SELECT COUNT(*) AS total_bids  FROM bids WHERE user_id = :user_id", [
+                    "user_id" => $_SESSION["USER"]->id
+                ])[0]->total_bids;
+                $data["totalPages"] = ceil($data["totalBids"] / $data["limit"]);
+                $data["bids"] = $bid->query(
+                    "SELECT 
+                        bids.*,
+                        users.name AS user_name,
+                        users.email AS user_email,
+                        tenders.title AS tender_title,
+                        tenders.status AS tender_status,
+                        tenders.winner_bid AS tender_winner_bid,
+                        tenders.category_id AS tender_category_id
+                    FROM bids
+                    JOIN users ON bids.user_id = users.id
+                    JOIN tenders ON bids.tender_id = tenders.id
+                    WHERE bids.user_id = :user_id
+                    ORDER BY bids.id DESC
+                    LIMIT :limit OFFSET :offset",
+                    [
+                        "user_id" => $_SESSION["USER"]->id,
+                        "limit" => (int)$data["limit"],
+                        "offset" => (int)$data["offset"]
+                    ]
+                );
+
+            }
+
+        } catch (Exception $e) {
+
+        }
+        
+        $this->view("bids.list", $data);
+    }
 }

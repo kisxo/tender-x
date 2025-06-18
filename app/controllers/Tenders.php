@@ -383,6 +383,7 @@ class Tenders
         {
             $tender->delete($id);
             $data["success"] = ["message" => "Tender deleted successfully!"];
+            redirect('/tenders/list');
         }
 
         $data["card"] = [
