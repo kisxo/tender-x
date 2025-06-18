@@ -25,8 +25,8 @@ CREATE TABLE tenders (
   id SERIAL PRIMARY KEY,
   title VARCHAR(200) NOT NULL,
   description TEXT,
-  category_id INT REFERENCES categories(id),
-  posted_by INT REFERENCES users(id),
+  category_id INT REFERENCES categories(id) ON DELETE CASCADE,
+  posted_by INT REFERENCES users(id) ON DELETE CASCADE,
   budget NUMERIC(12,2),
   deadline DATE,
   winner_bid INT,
@@ -38,8 +38,8 @@ CREATE TABLE tenders (
 -- BIDS
 CREATE TABLE bids (
   id SERIAL PRIMARY KEY,
-  tender_id INT REFERENCES tenders(id),
-  user_id INT REFERENCES users(id),
+  tender_id INT REFERENCES tenders(id) ON DELETE CASCADE,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
   bid_amount NUMERIC(12,2) NOT NULL,
   message TEXT,
   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
