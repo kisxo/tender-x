@@ -104,7 +104,7 @@ class Admin
         if (empty($data["user"])) {
             redirect("/admin/users");
         }
-        show($_POST);
+        
         $this->view("admin.users.edit", $data);
     }
 

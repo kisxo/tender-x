@@ -67,7 +67,7 @@ class Bids
             if ($bid->validate($_POST))
             {
                 $bid->insert($_POST);
-                redirect("/bids");
+                redirect("/bids/list");
             }
         }
 
@@ -96,10 +96,25 @@ class Bids
                 // Fetch total number of bids
                 $data["totalBids"] = $bid->query("SELECT COUNT(*) AS total_bids  FROM bids")[0]->total_bids;
                 $data["totalPages"] = ceil($data["totalBids"] / $data["limit"]);
-                $data["bids"] = $bid->query("SELECT * FROM bids ORDER BY id DESC LIMIT :limit OFFSET :offset", [
-                    "limit" => $data["limit"],
-                    "offset" => $data["offset"]
-                ]);
+                $data["bids"] = $bid->query(
+                    "SELECT 
+                        bids.*,
+                        users.name AS user_name,
+                        users.email AS user_email,
+                        tenders.title AS tender_title,
+                        tenders.status AS tender_status,
+                        tenders.winner_bid AS tender_winner_bid,
+                        tenders.category_id AS tender_category_id
+                    FROM bids
+                    JOIN users ON bids.user_id = users.id
+                    JOIN tenders ON bids.tender_id = tenders.id
+                    ORDER BY bids.id DESC
+                    LIMIT :limit OFFSET :offset",
+                    [
+                        "limit" => (int)$data["limit"],
+                        "offset" => (int)$data["offset"]
+                    ]
+                );
             }
             else
             {
