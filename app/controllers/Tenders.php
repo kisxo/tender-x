@@ -276,4 +276,42 @@ class Tenders
 
         redirect('/tenders/'.$_POST["tender_id"]);
     }
+
+    public function edit($id = "")
+    {
+        loginRequired();
+        $user = new User;
+        $tender = new Tender;
+        $category = new Category;
+
+        if (empty($id))
+        {
+            redirect('/tenders');
+        }
+
+        $data["tender"] = $tender->first(['id' => $id]);
+        $data["is_creator"] = $_SESSION["USER"]->id == $data["tender"]->posted_by;
+        $data["categories"] = $category->findAll();
+
+
+        if (!$data["is_creator"])
+        {
+            redirect('/tenders');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+            // validate tender uploaded form-data
+            if ($tender->validate($_POST))
+            {
+                $_POST["id"] = $id;
+                $tender->update($id, $_POST);
+
+                // redirect to login page after successfull registration
+                redirect("/tenders/edit/".$id);
+            }
+        }
+
+        $this->view("tenders.edit", $data);
+    }
 }
