@@ -30,7 +30,7 @@ if (empty($_SESSION["USER"]))
             'url'  => '/tenders/create',
         ],
         [
-            'name' => 'Posted Tenders',
+            'name' => 'My Tenders',
             'url'  => '/tenders/posts',
         ],
         [

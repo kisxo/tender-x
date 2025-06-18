@@ -18,7 +18,7 @@
         <?php require "components/tenders/category_selector.php"; ?>
 
         <!-- Tender List -->
-        <?php require "components/tenders/tender_list.php"; ?>
+        <?php require "components/tenders/tender_card.php"; ?>
 
     </main>
 
