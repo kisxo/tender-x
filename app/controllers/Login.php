@@ -25,16 +25,32 @@ class Login
                 // match input password hash with stored password hash
                 if ($row->password === sha1($_POST["password"]))
                 {
-                    // store user data in session 
-                    $_SESSION["USER"] = $row;
+                    // store user data in session
+                    if ($row->status === "active")
+                    {
+                        $_SESSION["USER"] = $row;
+                        // redirect to home page after successfull login
+                        redirect("/");
+                    }
+                    else{
+                        $user->errors["User"] = "Your account is suspended!";
+                    }
 
-                    // redirect to home page after successfull login
-                    redirect("/");
+                }
+                else
+                {
+                    // register error if user not found
+                    $user->errors["email"] = "Wrong email or password!";
                 }
             }
+            else
+            {
+                // register error if user not found
+                $user->errors["email"] = "Wrong email or password!";
+            }
 
-            // register error if user not found or password does not match
-            $user->errors["email"] = "Wrong email or password!";
+            // // register error if user not found or password does not match
+            // $user->errors["email"] = "Wrong email or password!";
         }
 
         // show if any errors found
